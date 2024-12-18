@@ -222,8 +222,8 @@ app.use(flash());
 app.use('/customer',dashboardRoutes.isAuthenticated,  customerRoutes);
 app.use('/customer-screen',dashboardRoutes.isAuthenticated, customerScreenRoutes);
 // Routes setup
-// const screenRoutes = require('./src/routes/customerscreen');      
-// app.use('/customer-screen', screenRoutes);                                                                             
+const screenRoutes = require('./src/routes/customerscreen');      
+app.use('/customer-screen', screenRoutes);                                                                             
 const customerPlaylist = require('./src/routes/customer-playlist');                                 
 app.use('/customer-playlist',dashboardRoutes.isAuthenticated, customerPlaylist);
 
