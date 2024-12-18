@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Playlist</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dqfnwh89v/image/upload/v1724408615/qxvvfcf7ftgklhl2k03v.png">
+    <link rel="stylesheet" href="/css/newPlaylist.css">
+  <link rel="stylesheet" href="/css/font.css" />
+    <style>
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .main input[type="text"] {
+            width: calc(50% - 5px);
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .main label {
+            width: 100%;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="newPlaylist">
+        <div class="header">
+            <button2 onclick="exitfunction()">Exit</button2>
+            <button id="selectScreenButton">Select Screen</button>
+           
+        </div>
+        <div class="main">
+            <label for="live1">Live 1 URL:</label>
+            <input type="text" id="live1" name="live1">
+            
+            <label for="live2">Live 2 URL:</label>
+            <input type="text" id="live2" name="live2">
+            
+            <label for="live3">Live 3 URL:</label>
+            <input type="text" id="live3" name="live3">
+            
+            <label for="live4">Live 4 URL:</label>
+            <input type="text" id="live4" name="live4">
+            
+            <label for="live5">Live 5 URL:</label>
+            <input type="text" id="live5" name="live5">
+            
+            <label for="live6">Live 6 URL:</label>
+            <input type="text" id="live6" name="live6">
+            
+            <label for="live7">Live 7 URL:</label>
+            <input type="text" id="live7" name="live7">
+            
+            <label for="live8">Live 8 URL:</label>
+            <input type="text" id="live8" name="live8">
+            
+            <label for="live9">Live 9 URL:</label>
+            <input type="text" id="live9" name="live9">
+            
+            <label for="live10">Live 10 URL:</label>
+            <input type="text" id="live10" name="live10">
+
+ <!-- Clock Option -->
+  <div>
+ <label for="clock"> Clock:</label>
+ <input type="checkbox" id="clock" name="clock">
+</div>
+<div>
+ <label for="weather"> Weather:</label>                                                                 
+ <input type="checkbox" id="weather" name="weather">
+</div>
+<div>
+
+ <label for="clockRuntime">Clock Runtime (seconds):</label>
+ <input type="number" id="clockRuntime" name="clockRuntime">                    
+</div> 
+
+                                                                                                    
+
+<div class="form-group">
+    <label for="youtube_live">YouTube Live</label>
+    <input type="checkbox" id="youtube_live" name="youtube_live">
+  </div>
+  
+  <div class="form-group">
+    <label for="exoplayer">ExoPlayer</label>
+    <input type="checkbox" id="exoplayer" name="exoplayer">
+  </div>
+  
+  <div class="form-group">
+    <label for="youtube_live_link">YouTube Live Link</label>
+    <input type="text" id="youtube_live_link" name="youtube_live_link" class="form-control" placeholder="Enter YouTube Live Link">
+  </div>
+      
+
+  
+        </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    </div>                                                                                 
+    <script>                                                                        
+
+
+
+       function exitfunction() {
+            if (confirm("Are you sure you want to exit and discard changes?")) {
+                window.history.back();
+            }
+        }
+
+
+        document.getElementById('selectScreenButton').addEventListener('click', function () {
+    const formData = {
+        live1: document.getElementById('live1').value,
+        live2: document.getElementById('live2').value,
+        live3: document.getElementById('live3').value,
+        live4: document.getElementById('live4').value,
+        live5: document.getElementById('live5').value,
+        live6: document.getElementById('live6').value,
+        live7: document.getElementById('live7').value,
+        live8: document.getElementById('live8').value,
+        live9: document.getElementById('live9').value,
+        live10: document.getElementById('live10').value,
+        clock: document.getElementById('clock').checked, // True if checked, false if unchecked
+        weather: document.getElementById('weather').checked, // True if checked, false if unchecked
+        clockRuntime: parseInt(document.getElementById('clockRuntime').value.trim()) || 0,
+        youtube_live: document.getElementById('youtube_live').checked, // True if checked, false if unchecked
+        exoplayer: document.getElementById('exoplayer').checked, // True if checked, false if unchecked
+        youtube_live_link: document.getElementById('youtube_live_link').value.trim(), // The YouTube live link
+    };
+
+    // Check if at least one URL input is filled
+    const isValid = Object.keys(formData).some((key) => {
+        if (key.startsWith('live')) {
+            return formData[key].trim() !== '';
+        }
+        return false;
+    });
+
+    if (!isValid) {
+        alert('Please fill out at least one URL.');
+        return;
+    }
+
+    // Validate clock runtime
+    if (formData.clockRuntime < 0) {
+        alert('Clock Runtime must be 0 or a positive integer.');
+        return;
+    }
+
+    // Validate YouTube Live link if `youtube_live` is selected
+    if (formData.youtube_live && !formData.youtube_live_link) {
+        alert('Please provide a valid YouTube Live link if YouTube Live is selected.');
+        return;
+    }
+
+    console.log('Collected Form Data:', formData);
+
+    // Store the data in session storage
+    sessionStorage.setItem('formData', JSON.stringify(formData));
+
+    // Redirect to the next page
+    window.location.href = '/Dashboard/LiveContent/liveLink/selectlivescreens';
+});
+
+
+
+    </script>
+    
+</body>
+
+</html>
