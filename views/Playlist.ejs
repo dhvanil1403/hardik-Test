@@ -9,6 +9,31 @@
   <link rel="stylesheet" href="/css/font.css" />
   <link rel="stylesheet" href="/css/playlist.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script>
+        let heartbeatInterval;
+      
+        // Send a heartbeat to the server
+        const sendHeartbeat = () => {
+          fetch('/heartbeat', {
+            method: 'POST',
+            credentials: 'include', // Include session cookies
+          }).catch(err => {
+            console.error('Heartbeat failed:', err);
+          });
+        };
+      
+        // Start the heartbeat when the page loads
+        window.addEventListener('load', () => {
+          sendHeartbeat(); // Send immediately on load
+          heartbeatInterval = setInterval(sendHeartbeat, 5000); // Send every 5 seconds
+        });
+      
+        // Stop the heartbeat when the page unloads
+        window.addEventListener('beforeunload', () => {
+          clearInterval(heartbeatInterval);
+        });
+      </script>
+      
 </head>
 
 <body>
