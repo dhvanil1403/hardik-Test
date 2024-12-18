@@ -12,6 +12,31 @@
       cursor: pointer;
     }
   </style>
+ <script>
+        let heartbeatInterval;
+      
+        // Send a heartbeat to the server
+        const sendHeartbeat = () => {
+          fetch('/heartbeat', {
+            method: 'POST',
+            credentials: 'include', // Include session cookies
+          }).catch(err => {
+            console.error('Heartbeat failed:', err);
+          });
+        };
+      
+        // Start the heartbeat when the page loads
+        window.addEventListener('load', () => {
+          sendHeartbeat(); // Send immediately on load
+          heartbeatInterval = setInterval(sendHeartbeat, 5000); // Send every 5 seconds
+        });
+      
+        // Stop the heartbeat when the page unloads
+        window.addEventListener('beforeunload', () => {
+          clearInterval(heartbeatInterval);
+        });
+      </script>
+      
 </head>
 <body>
   <div class="container">
