@@ -10,7 +10,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+ <script>
+        let heartbeatInterval;
+      
+        // Send a heartbeat to the server
+        const sendHeartbeat = () => {
+          fetch('/heartbeat', {
+            method: 'POST',
+            credentials: 'include', // Include session cookies
+          }).catch(err => {
+            console.error('Heartbeat failed:', err);
+          });
+        };
+      
+        // Start the heartbeat when the page loads
+        window.addEventListener('load', () => {
+          sendHeartbeat(); // Send immediately on load
+          heartbeatInterval = setInterval(sendHeartbeat, 5000); // Send every 5 seconds
+        });
+      
+        // Stop the heartbeat when the page unloads
+        window.addEventListener('beforeunload', () => {
+          clearInterval(heartbeatInterval);
+        });
+      </script>
+      
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Get the menu icon and nav-links elements
