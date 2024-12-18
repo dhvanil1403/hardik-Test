@@ -7,6 +7,31 @@
   <title>Select Screens to Publish Playlist</title>
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/dqfnwh89v/image/upload/v1724408615/qxvvfcf7ftgklhl2k03v.png">
   <link rel="stylesheet" href="/css/groupScreen.css" />
+ <script>
+        let heartbeatInterval;
+      
+        // Send a heartbeat to the server
+        const sendHeartbeat = () => {
+          fetch('/heartbeat', {
+            method: 'POST',
+            credentials: 'include', // Include session cookies
+          }).catch(err => {
+            console.error('Heartbeat failed:', err);
+          });
+        };
+      
+        // Start the heartbeat when the page loads
+        window.addEventListener('load', () => {
+          sendHeartbeat(); // Send immediately on load
+          heartbeatInterval = setInterval(sendHeartbeat, 5000); // Send every 5 seconds
+        });
+      
+        // Stop the heartbeat when the page unloads
+        window.addEventListener('beforeunload', () => {
+          clearInterval(heartbeatInterval);
+        });
+      </script>
+      
   <style>
     .goback {
       padding: 12px 20px;
