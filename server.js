@@ -20,7 +20,7 @@ const api = require("./src/controllers/api.controller");
 const moment = require("moment-timezone");
 const axios = require("axios");
 const customerRoutes = require('./src/routes/customerRoutes');
-const customerScreenRoutes = require('./src/routes/customerScreen');
+// const customerScreenRoutes = require('./src/routes/customerScreen');
 const methodOverride = require('method-override');
 const {
   getStatus,
@@ -220,10 +220,10 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(flash());
 app.use('/customer',dashboardRoutes.isAuthenticated,  customerRoutes);
-app.use('/customer-screen',dashboardRoutes.isAuthenticated, customerScreenRoutes);
+// app.use('/customer-screen',dashboardRoutes.isAuthenticated, customerScreenRoutes);
 // Routes setup
 const screenRoutes = require('./src/routes/customerscreen');      
-app.use('/customer-screen', screenRoutes);                                                                             
+app.use('/customer-screen',dashboardRoutes.isAuthenticated, screenRoutes);                                                                             
 const customerPlaylist = require('./src/routes/customer-playlist');                                 
 app.use('/customer-playlist',dashboardRoutes.isAuthenticated, customerPlaylist);
 
